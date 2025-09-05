@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/ythsm/low_altitude_logistics_ws/devel/include/**",
+        "/home/ythsm/catkin_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/planner/bspline_opt/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/utils/DecompROS/decomp_ros_utils/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/planner/drone_detect/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/planner/plan_manage/include/**",
+        "/home/ythsm/catkin_ws/src/gazebo_ros_pkgs/gazebo_plugins/include/**",
+        "/home/ythsm/catkin_ws/src/gazebo_ros_pkgs/gazebo_ros/include/**",
+        "/home/ythsm/catkin_ws/src/gazebo_ros_pkgs/gazebo_ros_control/include/**",
+        "/home/ythsm/catkin_ws/src/livox_laser_simulation/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/planner/path_searching/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/planner/plan_env/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/utils/pose_utils/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/utils/quadrotor_msgs/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/swarm_ros_bridge/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/planner/traj_utils/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/uav_ctl/include/**",
+        "/home/ythsm/low_altitude_logistics_ws/src/zky_swarm/utils/uav_utils/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

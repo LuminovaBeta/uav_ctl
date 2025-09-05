@@ -1,0 +1,13 @@
+<launch>
+    <!-- 无人机命名空间，默认空 -->
+    <arg name="ns" default="iris_0"/>
+
+    <!-- 航点配置文件路径 -->
+    <arg name="waypoint_file" default="$(find uav_ctl)/config/waypoints.yaml"/>
+
+    <!-- 启动任务规划器 -->
+    <node pkg="uav_ctl" type="waypoint_runner_node" name="waypoint_runner_node" output="screen">
+        <param name="uav_ns" value="$(arg ns)"/>
+        <rosparam command="load" file="$(arg waypoint_file)"/>
+    </node>
+</launch>

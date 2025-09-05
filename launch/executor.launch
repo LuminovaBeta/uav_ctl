@@ -1,0 +1,19 @@
+<launch>
+    <!-- 命名空间，默认空 -->
+    <arg name="uav_ns" default="iris_0"/>
+
+    <!-- 参数配置 -->
+    <arg name="takeoff_height"  default="1.5"/>
+    <arg name="max_velocity"    default="1.8"/>
+    <arg name="goal_tolerance"  default="0.2"/>
+    <arg name="control_rate"    default="50.0"/>
+
+    <!-- 节点启动 -->
+    <node pkg="uav_ctl" type="trajectory_executor" name="trajectory_executor" output="screen" ns="$(arg uav_ns)">
+        <param name="namespace"      value="$(arg uav_ns)"/>
+        <param name="takeoff_height" value="$(arg takeoff_height)"/>
+        <param name="max_velocity"   value="$(arg max_velocity)"/>
+        <param name="goal_tolerance" value="$(arg goal_tolerance)"/>
+        <param name="control_rate"   value="$(arg control_rate)"/>
+    </node>
+</launch>
