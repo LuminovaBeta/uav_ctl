@@ -48,7 +48,9 @@ TrajectoryExecutorNode::TrajectoryExecutorNode(ros::NodeHandle& nh, ros::NodeHan
 
     state_sub_ = nh_.subscribe(state_topic, 1, &TrajectoryExecutorNode::stateCb, this);
     pose_sub_ = nh_.subscribe(pose_topic, 1, &TrajectoryExecutorNode::poseCb, this);
+
     pos_setpoint_pub_ = nh_.advertise<geometry_msgs::PoseStamped>(setpoint_topic, 1);
+
     arming_client_ = nh_.serviceClient<mavros_msgs::CommandBool>(arming_srv);
     set_mode_client_ = nh_.serviceClient<mavros_msgs::SetMode>(set_mode_srv);
 
@@ -60,6 +62,8 @@ TrajectoryExecutorNode::TrajectoryExecutorNode(ros::NodeHandle& nh, ros::NodeHan
 
     // --- 初始化状态/反馈发布器 ---
     status_pub_ = pnh.advertise<std_msgs::String>("status", 1, true); // Latching
+    takeoff_done_pub_ = pnh.advertise<std_msgs::Bool>("takeoff_done", 1, true);  // latched
+    
     waypoint_reached_pub_ = pnh.advertise<std_msgs::Bool>("waypoint_reached", 1);
     
     // 发布初始状态
@@ -148,6 +152,7 @@ void TrajectoryExecutorNode::controlLoop(const ros::TimerEvent& event) {
 }
 
 void TrajectoryExecutorNode::armingLogic() {
+    takeoff_done_published_ = false;   // 重置
     pos_setpoint_pub_.publish(current_pose_); // 切换 OFFBOARD 前持续发送设定点
     if (current_state_.mode != "OFFBOARD") {
         mavros_msgs::SetMode offb_set_mode;
@@ -248,6 +253,15 @@ void TrajectoryExecutorNode::setState(FlightState new_state) {
 void TrajectoryExecutorNode::enterHoverState() {
     hover_pose_ = current_pose_;
     setState(FlightState::HOVERING);
+
+    /* 起飞完成 → 通知上层（只发一次）*/
+    if (!takeoff_done_published_) {
+        std_msgs::Bool msg;
+        msg.data = true;
+        takeoff_done_pub_.publish(msg);
+        takeoff_done_published_ = true;
+        ROS_INFO("Published ~takeoff_done=true");
+    }
 }
 
 void TrajectoryExecutorNode::enterAirIdleState() {

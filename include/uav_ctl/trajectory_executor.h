@@ -43,7 +43,8 @@ private:
     ros::Publisher pos_setpoint_pub_;
     ros::Publisher status_pub_;
     ros::Publisher waypoint_reached_pub_;
-
+    bool takeoff_done_published_ = false;
+    ros::Publisher takeoff_done_pub_;
     ros::ServiceServer takeoff_service_;
     ros::ServiceServer land_service_;
     ros::ServiceServer hover_service_;

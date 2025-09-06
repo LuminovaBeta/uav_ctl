@@ -41,6 +41,7 @@ private:
     ros::Timer update_timer_;
     ros::Publisher goto_pub_;
     ros::Subscriber reached_sub_;
+    ros::Subscriber takeoff_done_sub_;
     ros::ServiceClient takeoff_client_;
     ros::ServiceClient land_client_;
 
@@ -71,6 +72,8 @@ MissionPlannerNode::MissionPlannerNode(ros::NodeHandle& nh) : nh_(nh), current_w
     std::string topic_prefix = "/" + uav_ns_ + "/trajectory_executor";
     goto_pub_ = nh_.advertise<geometry_msgs::PoseStamped>(topic_prefix + "/goto", 1);
     reached_sub_ = nh_.subscribe(topic_prefix + "/waypoint_reached", 1, &MissionPlannerNode::reachedCb, this);
+    takeoff_done_sub_ = nh_.subscribe(topic_prefix + "/takeoff_done", 1, &MissionPlannerNode::reachedCb, this); // 也可单独写个 takeoffCb
+
     takeoff_client_ = nh_.serviceClient<std_srvs::Trigger>(topic_prefix + "/takeoff");
     land_client_ = nh_.serviceClient<std_srvs::Trigger>(topic_prefix + "/land");
 
